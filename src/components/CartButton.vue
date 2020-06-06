@@ -5,9 +5,9 @@
         class="floating-button bg-blue-300 hover:bg-blue-700 shadow-lg"
         tag="button"
     >
-        <h2>{{ cart.length }}</h2>
-        <img src="../assets/shopping-cart-svgrepo-com.svg" alt="cart image"
-    /></router-link>
+        <h2>{{ itemsQuantity }}</h2>
+        <img src="../assets/shopping-cart-svgrepo-com.svg" alt="cart image" />
+    </router-link>
 </template>
 
 <script>
@@ -15,6 +15,13 @@ export default {
     computed: {
         cart() {
             return this.$store.getters.getCart
+        },
+        itemsQuantity() {
+            let qty = 0
+            for (let i = 0; i < this.cart.length; i++) {
+                qty = qty + this.cart[i].counter
+            }
+            return qty
         },
         showCartButton() {
             if (this.cart.length >= 1) {

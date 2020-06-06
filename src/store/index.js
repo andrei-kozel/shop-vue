@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
 `,
                 price: '49',
                 id: 1,
-                counter: 0
+                counter: 1
             },
             {
                 image:
@@ -28,7 +28,7 @@ export const store = new Vuex.Store({
 `,
                 price: '65',
                 id: 2,
-                counter: 0
+                counter: 1
             },
             {
                 image: 'https://m.media-amazon.com/images/I/418NnKr2KKL.jpg',
@@ -40,7 +40,7 @@ export const store = new Vuex.Store({
 `,
                 price: '25',
                 id: 3,
-                counter: 0
+                counter: 1
             },
             {
                 image:
@@ -53,7 +53,7 @@ export const store = new Vuex.Store({
 `,
                 price: '30',
                 id: 4,
-                counter: 0
+                counter: 1
             }
         ],
         cart: []
@@ -61,11 +61,29 @@ export const store = new Vuex.Store({
     actions: {
         addToCart(context, id) {
             context.commit('addToCart', id)
+        },
+        increment(context, id) {
+            context.commit('increment', id)
+        },
+        decrement(context, id) {
+            context.commit('increment', id)
         }
     },
     mutations: {
         addToCart(state, id) {
-            state.cart.push(state.books.find(book => book.id === parseInt(id)))
+            let book = this.getters.getBookById(id)
+
+            if (state.cart.length === 0) {
+                state.cart.push(book)
+            }
+
+            for (let i = 0; i <= state.cart.length; i++) {
+                if (state.cart[i] === book) {
+                    state.cart[i].counter++
+                } else {
+                    state.cart.push(book)
+                }
+            }
         }
     },
     getters: {
