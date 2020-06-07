@@ -3,8 +3,8 @@
         <div class="flex flex-col w-full p-8 text-gray-800 pin-r pin-y md:w-4/5 lg:w-4/5">
             <h1 class="text-4xl">Your cart</h1>
 
-            <div class="flex-1">
-                <table class="w-full text-sm lg:text-base" cellspacing="0">
+            <div class="flex-1" v>
+                <table class="w-full text-sm lg:text-base" cellspacing="0" v-if="cart.length > 0">
                     <thead>
                         <tr class="h-12 uppercase">
                             <th class="hidden md:table-cell text-left"></th>
@@ -37,7 +37,8 @@
                             <td>
                                 <div class="w-20 float-right flex">
                                     <input
-                                        type="text"
+                                        @click="checkQty(item)"
+                                        type="number"
                                         v-model="item.counter"
                                         class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
                                     />
@@ -47,13 +48,22 @@
                                 <span class="text-sm lg:text-base font-medium">${{ item.price }}</span>
                             </td>
                             <td class="text-right">
-                                <span
-                                    class="text-sm lg:text-base font-medium"
-                                >${{ item.price * item.counter }}</span>
+                                <span class="text-sm lg:text-base font-medium">
+                                    ${{
+                                    parseInt(item.price) *
+                                    parseInt(item.counter)
+                                    }}
+                                </span>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <div v-else>Your cart is empty</div>
+                <router-link
+                    to="/"
+                    tag="button"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >Go back shopping</router-link>
             </div>
         </div>
     </div>
@@ -72,7 +82,13 @@ export default {
             return this.cart
         }
     },
-    methods: {}
+    methods: {
+        checkQty(item) {
+            if (item.counter <= 0) {
+                this.$store.dispatch('removeFromCart', item.id)
+            }
+        }
+    }
 }
 </script>
 

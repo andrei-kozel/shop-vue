@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
 `,
                 price: '49',
                 id: 1,
-                counter: 1
+                counter: 0
             },
             {
                 image:
@@ -28,7 +28,7 @@ export const store = new Vuex.Store({
 `,
                 price: '65',
                 id: 2,
-                counter: 1
+                counter: 0
             },
             {
                 image: 'https://m.media-amazon.com/images/I/418NnKr2KKL.jpg',
@@ -40,7 +40,7 @@ export const store = new Vuex.Store({
 `,
                 price: '25',
                 id: 3,
-                counter: 1
+                counter: 0
             },
             {
                 image:
@@ -53,7 +53,7 @@ export const store = new Vuex.Store({
 `,
                 price: '30',
                 id: 4,
-                counter: 1
+                counter: 0
             }
         ],
         cart: []
@@ -67,23 +67,28 @@ export const store = new Vuex.Store({
         },
         decrement(context, id) {
             context.commit('increment', id)
+        },
+        removeFromCart(context, id) {
+            context.commit('removeFromCart', id)
         }
     },
     mutations: {
         addToCart(state, id) {
             let book = this.getters.getBookById(id)
 
-            if (state.cart.length === 0) {
+            if (state.cart.indexOf(book) === -1) {
+                book.counter++
                 state.cart.push(book)
-            }
-
-            for (let i = 0; i <= state.cart.length; i++) {
-                if (state.cart[i] === book) {
-                    state.cart[i].counter++
-                } else {
-                    state.cart.push(book)
+            } else {
+                for (let i = 0; i < state.cart.length; i++) {
+                    if (state.cart[i].id === id) {
+                        state.cart[i].counter++
+                    }
                 }
             }
+        },
+        removeFromCart(state, id) {
+            state.cart = state.cart.filter(item => item.id != id)
         }
     },
     getters: {

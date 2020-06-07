@@ -19,9 +19,9 @@ export default {
         itemsQuantity() {
             let qty = 0
             for (let i = 0; i < this.cart.length; i++) {
-                qty = qty + this.cart[i].counter
+                qty = qty + parseInt(this.cart[i].counter)
             }
-            return qty
+            return parseInt(qty)
         },
         showCartButton() {
             if (this.cart.length >= 1) {
