@@ -1,6 +1,6 @@
 # shop-vue
 
-This is mu simple Shop project written with Vue.js (Vuex, Vue Router). Just for practice purpose.
+This is my simple Shop project written with Vue.js (Vuex, Vue Router). Just for practice purposes.
 
 TODO: animation and rating
 
