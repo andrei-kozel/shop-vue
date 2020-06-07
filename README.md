@@ -4,7 +4,7 @@ This is mu simple Shop project written with Vue.js (Vuex, Vue Router). Just for 
 
 TODO: animation and rating
 
-![shop-vue](https://github.com/andrei-kozel/shop-vue/master/src/assets/vue-shop.gif?raw=true)
+![shop-vue](https://github.com/andrei-kozel/shop-vue/blob/master/src/assets/vue-shop.gif)
 
 ## Project setup
 
